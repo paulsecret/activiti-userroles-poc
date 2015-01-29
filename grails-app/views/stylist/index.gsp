@@ -15,10 +15,11 @@
 <br /><br />
 <div class="container">
     <div class="row">
+        <h2>Open tasks for ${stylist.firstName} ${stylist.lastName} - click to open in "Amidala"</h2>
         <div class="col-xs-6">
             <div class="list-group">
                 <g:each status="i" in="${tasks}" var="task">
-                    <a href="#" class="list-group-item">${task.name} ${i + 1} (${task.assignee?:'unassigned'})</a>
+                    <a href="/workflow-engine-prototype/task?taskId=${task.id}&stylistId=${stylist.id}" class="list-group-item stylist">${task.name} ${task.id} (${task.assignee?:'unassigned'})</a>
                 </g:each>
             </div>
         </div>

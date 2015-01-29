@@ -6,11 +6,14 @@ class StylistController {
 
     def index() {
         def http = new HTTPBuilder('http://localhost:8080')
-        http.auth.basic 'stylist_2', 'kermit'
+        http.auth.basic params.stylistId, 'kermit'
         def tasks = http.get(
                 path: '/activiti-rest/service/runtime/tasks',
-                query: [ assignee: 'stylist_2' ]
+                query: [ assignee: params.stylistId ]
         )
-        render(view: "index", model: [ tasks: tasks.data ])
+        def stylist = http.get(
+                path: '/activiti-rest/service/identity/users/' + params.stylistId
+        )
+        render(view: "index", model: [ tasks: tasks.data, stylist: stylist ])
     }
 }

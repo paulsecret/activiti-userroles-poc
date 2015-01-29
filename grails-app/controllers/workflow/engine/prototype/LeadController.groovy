@@ -1,18 +1,13 @@
 package workflow.engine.prototype
 
 import grails.converters.JSON
+import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
 
 class LeadController {
 
     def index() {
-        /*
-            this needs to build a model consisting of:
-            - all tasks with candicateGroup=lead_stylists
-            - all users with group=stylists
-         */
-        // http://localhost:8080/activiti-rest/service/runtime/tasks?candidateGroup=lead_stylists
         def http = new HTTPBuilder('http://localhost:8080')
         http.auth.basic 'lead_stylist_1', 'kermit'
         def tasks = http.get(
@@ -31,13 +26,21 @@ class LeadController {
         def stylistId = params.stylistId
         def http = new HTTPBuilder('http://localhost:8080/activiti-rest/service/runtime/tasks/' + taskId)
         http.auth.basic 'lead_stylist_1', 'kermit'
-        http.request(Method.PUT, JSON) { req ->
+        http.request(Method.PUT, ContentType.JSON) { req ->
             body = [ assignee: stylistId ]
 
             response.success = { resp, json ->
-                // response handling here
+                // redirect(uri: '/lead/index')
             }
         }
-        redirect(action: 'index')
+    }
+
+    def start_process() {
+        def http = new HTTPBuilder('http://localhost:8080/activiti-rest/service/runtime/process-instances')
+        http.auth.basic 'lead_stylist_1', 'kermit'
+        http.request(Method.POST, ContentType.JSON) { req ->
+            body = [ processDefinitionId: 'process:7:12516' ]
+        }
+        // redirect(uri: '/lead/index')
     }
 }

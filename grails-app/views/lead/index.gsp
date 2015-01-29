@@ -23,7 +23,7 @@
                 <div class="col-xs-6">
                     <div class="list-group">
                         <g:each status="i" in="${tasks}" var="task">
-                            <a href="#" class="list-group-item" data-id="${task.id}">${task.name} ${i + 1} (${task.assignee?:'unassigned'})</a>
+                            <a href="#" class="list-group-item" data-id="${task.id}">${task.name} ${task.id} (${task.assignee?:'unassigned'})</a>
                         </g:each>
                     </div>
                 </div>
@@ -38,6 +38,11 @@
                         </g:each>
                     </ul>
                 </div>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-default btn-lg start-flow">
+                    Add opportunity
+                </button>
             </div>
         </div>
     </body>
