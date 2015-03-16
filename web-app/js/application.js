@@ -22,11 +22,9 @@ $(function () {
             data: { taskId: taskId, stylistId : stylistId } ,
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                console.log('assign task succeeded, response:' + response);
                 location.reload(false);
             },
             error: function (response) {
-                console.log('assign task failed, response:' + response);
                 location.reload(false);
             }
         });
@@ -36,11 +34,9 @@ $(function () {
             url: '/workflow-engine-prototype/lead/start_process',
             type: 'GET',
             success: function (response) {
-                console.log('start process succeeded, response:' + response);
                 location.reload(false);
             },
             error: function (response) {
-                console.log('start process failed, response:' + response);
                 location.reload(false);
             }
         });
@@ -53,11 +49,9 @@ $(function () {
             type: 'GET',
             data: { taskId: taskId, stylistId: stylistId },
             success: function (response) {
-                console.log('finish task succeeded, response:' + response);
                 location.href = '/workflow-engine-prototype/stylist?stylistId=' + stylistId;
             },
             error: function (response) {
-                console.log('finish task failed, response:' + response);
                 location.href = '/workflow-engine-prototype/stylist?stylistId=' + stylistId;
             }
         });
